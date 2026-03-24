@@ -11,6 +11,7 @@ app.use(express.json());
 
 // Root route
 app.get("/", (req, res) => {
+  console.log(`Running default URL`);
   res.json({
     message: "Node API is running",
     instanceHostname: os.hostname(),
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
 
 // Health check route for ALB / ASG
 app.get("/health", (req, res) => {
+  console.log(`Running health URL`);
   res.status(200).json({
     status: "ok",
     instanceHostname: os.hostname(),
@@ -30,6 +32,7 @@ app.get("/health", (req, res) => {
 
 // Extra route to identify which instance handled the request
 app.get("/instance", (req, res) => {
+  console.log(`Running instance URL`);
   res.json({
     hostname: os.hostname(),
     platform: os.platform(),
@@ -42,6 +45,7 @@ app.get("/instance", (req, res) => {
 
 // CPU stress route for testing auto scaling
 app.get("/stress", (req, res) => {
+  console.log(`Running stress URL`);
   const duration = parseInt(req.query.duration) || 10000;
   const end = Date.now() + duration;
 
